@@ -1,8 +1,9 @@
-name: Deploy ragai
+﻿name: Deploy ragai
 
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -35,3 +36,4 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H "$VM_HOST" >> ~/.ssh/known_hosts 2>/dev/null
           ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no "$VM_USER@$VM_HOST" "echo '$GHCR_TOKEN' | docker login ghcr.io -u '$GHCR_USER' --password-stdin && docker pull ghcr.io/wikolabs/ragai:latest && (docker stop ragai 2>/dev/null; docker rm ragai 2>/dev/null; true) && docker run -d --name ragai -p 3036:3000 --restart unless-stopped ghcr.io/wikolabs/ragai:latest && echo 'Deployed ragai on port 3036'"
+
