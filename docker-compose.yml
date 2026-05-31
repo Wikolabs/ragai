@@ -17,21 +17,9 @@ services:
       GROQ_API_KEY: ${GROQ_API_KEY:-}
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
     networks:
-      - ragai-net
-
-  ragai:
-    image: ghcr.io/wikolabs/ragai:latest
-    container_name: ragai
-    restart: unless-stopped
-    ports:
-      - "3036:3000"
-    environment:
-      BACKEND_URL: "http://ragai-backend:8000"
-    depends_on:
-      - ragai-backend
-    networks:
-      - ragai-net
-
+  wkdemo_net:
+    name: wkdemo-net
+    external: true
 networks:
   ragai-net:
     name: ragai-net
