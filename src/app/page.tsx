@@ -148,8 +148,8 @@ export default function Page() {
         .wk-btn:hover { opacity:.92; transform:translateY(-2px); box-shadow:0 12px 32px ${pal.accentGlow}; }
         .wk-btn-wa { transition: opacity .2s, transform .2s; }
         .wk-btn-wa:hover { opacity:.92; transform:translateY(-2px); }
-        .wk-btn-demo { cursor: not-allowed; opacity:.55; }
-        .wk-btn-demo:hover { transform:none; box-shadow:none; }
+        .wk-btn-demo { opacity:.78; transition: opacity .2s, transform .2s, background .2s; }
+        .wk-btn-demo:hover { opacity:1; transform:translateY(-2px); background:${pal.accentSoft}!important; }
         .wk-nav-link { color:${pal.txt2}; text-decoration:none; font-size:14px; font-weight:500; transition:color .2s; }
         .wk-nav-link:hover { color:${pal.txt1}; }
         .wk-lang { display:inline-flex; border:1px solid ${pal.border}; border-radius:100px; padding:2px; background:${pal.surface}; }
@@ -322,11 +322,11 @@ function CtaRow({ t, pal, isDark, waLink }: { t: typeof P.content.fr; pal: typeo
         style={{ background:"#25d366", color:"#FFFFFF", borderRadius:10, padding:"14px 28px", fontWeight:700, fontSize:15, textDecoration:"none", display:"inline-flex", alignItems:"center", gap:8 }}>
         💬 {t.ctaWhatsApp}
       </a>
-      <button type="button" disabled className="wk-btn-demo" aria-disabled="true"
+      <a href="/demo" className="wk-btn-demo" data-orig-btn="1"
         style={{ background:"transparent", color:pal.txt2, border:`1px solid ${pal.border}`, borderRadius:10, padding:"14px 28px", fontWeight:700, fontSize:15, display:"inline-flex", alignItems:"center", gap:10, fontFamily:"inherit", position:"relative" }}>
         ✨ {t.ctaDemo}
         <span style={{ fontSize:9, fontWeight:800, letterSpacing:1, padding:"2px 7px", borderRadius:100, border:`1px solid ${pal.accentBorder}`, color:pal.accent, background:pal.accentSoft, textTransform:"uppercase" }}>{t.ctaSoonBadge}</span>
-      </button>
+      </a>
     </div>
   );
 }
