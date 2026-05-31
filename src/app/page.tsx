@@ -140,6 +140,9 @@ export default function Page() {
         *, *::before, *::after { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body { -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        @keyframes wkBgShift { 0% { transform: translate3d(0,0,0) rotate(0deg); } 50% { transform: translate3d(-2%, 1.5%, 0) rotate(180deg); } 100% { transform: translate3d(0,0,0) rotate(360deg); } }
+        .wk-bg-fx { position: fixed; inset: -10%; pointer-events: none; z-index: 0; opacity: .55; will-change: transform; animation: wkBgShift 38s linear infinite; }
+        .wk-bg-fx::before, .wk-bg-fx::after { content: ""; position: absolute; inset: 0; }
         @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
         @keyframes pulseDot { 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.4; transform:scale(1.6); } }
         .wk-card { transition: background .3s, border-color .3s, transform .35s cubic-bezier(.34,1.2,.64,1); }
@@ -325,7 +328,6 @@ function CtaRow({ t, pal, isDark, waLink }: { t: typeof P.content.fr; pal: typeo
       <a href="/demo" className="wk-btn-demo" data-orig-btn="1"
         style={{ background:"transparent", color:pal.txt2, border:`1px solid ${pal.border}`, borderRadius:10, padding:"14px 28px", fontWeight:700, fontSize:15, display:"inline-flex", alignItems:"center", gap:10, fontFamily:"inherit", position:"relative" }}>
         ✨ {t.ctaDemo}
-        <span style={{ fontSize:9, fontWeight:800, letterSpacing:1, padding:"2px 7px", borderRadius:100, border:`1px solid ${pal.accentBorder}`, color:pal.accent, background:pal.accentSoft, textTransform:"uppercase" }}>{t.ctaSoonBadge}</span>
       </a>
     </div>
   );
