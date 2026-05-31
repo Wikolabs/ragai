@@ -1,0 +1,38 @@
+version: "3.9"
+
+# RAGAI demo — production-ready POC.
+# 2 services orchestrated:
+#   - ragai (Next.js frontend on host port 3036)
+#   - ragai-backend (FastAPI Python, internal only on 8000)
+# Internal network so the frontend can reach the backend by service name.
+# Note: a gpu-service/ placeholder exists in the repo for a future Cloud Run
+# GPU embedding service. It is intentionally NOT in this compose file (VM has no GPU).
+
+services:
+  ragai-backend:
+    image: ghcr.io/wikolabs/ragai-backend:latest
+    container_name: ragai-backend
+    restart: unless-stopped
+    environment:
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    networks:
+      - ragai-net
+
+  ragai:
+    image: ghcr.io/wikolabs/ragai:latest
+    container_name: ragai
+    restart: unless-stopped
+    ports:
+      - "3036:3000"
+    environment:
+      BACKEND_URL: "http://ragai-backend:8000"
+    depends_on:
+      - ragai-backend
+    networks:
+      - ragai-net
+
+networks:
+  ragai-net:
+    name: ragai-net
+    driver: bridge
